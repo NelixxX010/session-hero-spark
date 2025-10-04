@@ -94,53 +94,72 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background p-8">
-      <div className="max-w-7xl mx-auto space-y-6">
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-4xl font-bold">Dashboard Admin</h1>
-            <p className="text-muted-foreground mt-2">Bienvenue {user?.email}</p>
+    <div className="min-h-screen bg-background">
+      <header className="border-b bg-card">
+        <div className="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+              <svg className="w-5 h-5 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <h1 className="text-xl font-bold">CSint Admin</h1>
           </div>
-          <Button onClick={handleLogout} variant="outline">
+          <Button onClick={handleLogout} variant="outline" className="rounded-full">
             Déconnexion
           </Button>
         </div>
+      </header>
+
+      <div className="max-w-7xl mx-auto p-8 space-y-8">
+        <div className="space-y-2">
+          <h2 className="text-3xl font-bold">Tableau de bord</h2>
+          <p className="text-muted-foreground">Bienvenue {user?.email}</p>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card>
+          <Card className="border shadow-sm hover:shadow-md transition-shadow">
             <CardHeader>
-              <CardTitle>Nombre de recherches</CardTitle>
-              <CardDescription>Total des recherches effectuées</CardDescription>
+              <CardDescription>Nombre de recherches</CardDescription>
+              <CardTitle className="text-4xl font-bold text-primary">{searchCount}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-4xl font-bold">{searchCount}</p>
+              <p className="text-sm text-muted-foreground">Total des recherches effectuées</p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border shadow-sm hover:shadow-md transition-shadow">
             <CardHeader>
-              <CardTitle>Visites du site</CardTitle>
-              <CardDescription>Total des visites</CardDescription>
+              <CardDescription>Visites du site</CardDescription>
+              <CardTitle className="text-4xl font-bold text-primary">
+                {visits.reduce((acc, v) => acc + v.count, 0)}
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-4xl font-bold">{visits.reduce((acc, v) => acc + v.count, 0)}</p>
+              <p className="text-sm text-muted-foreground">Total des visites enregistrées</p>
             </CardContent>
           </Card>
         </div>
 
-        <Card>
+        <Card className="border shadow-sm">
           <CardHeader>
             <CardTitle>Visites par jour</CardTitle>
-            <CardDescription>Graphique des 7 derniers jours</CardDescription>
+            <CardDescription>Évolution des 7 derniers jours</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={visits}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="count" fill="hsl(var(--primary))" />
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                <XAxis dataKey="date" stroke="hsl(var(--muted-foreground))" />
+                <YAxis stroke="hsl(var(--muted-foreground))" />
+                <Tooltip 
+                  contentStyle={{
+                    backgroundColor: "hsl(var(--card))",
+                    border: "1px solid hsl(var(--border))",
+                    borderRadius: "0.5rem"
+                  }}
+                />
+                <Bar dataKey="count" fill="hsl(var(--primary))" radius={[8, 8, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>

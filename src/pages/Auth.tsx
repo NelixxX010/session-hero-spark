@@ -91,39 +91,51 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>Connexion Admin</CardTitle>
-          <CardDescription>Connectez-vous pour accéder au dashboard</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
+      <div className="w-full max-w-md space-y-8">
+        <div className="text-center space-y-4">
+          <div className="flex justify-center">
+            <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center">
+              <svg className="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Mot de passe</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Connexion..." : "Se connecter"}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+          </div>
+          <h1 className="text-4xl font-bold text-foreground">CSint Admin</h1>
+          <p className="text-muted-foreground">Accédez au tableau de bord d'administration</p>
+        </div>
+
+        <Card className="border shadow-lg">
+          <CardContent className="pt-6">
+            <form onSubmit={handleLogin} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="h-12"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="password">Mot de passe</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="h-12"
+                />
+              </div>
+              <Button type="submit" className="w-full h-12 text-base font-medium" disabled={loading}>
+                {loading ? "Connexion..." : "Se connecter"}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };
